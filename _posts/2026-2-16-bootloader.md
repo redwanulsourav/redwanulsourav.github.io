@@ -22,4 +22,4 @@ dw 0xAA55
 
 The second and the last instruction sets the last two bytes to be `0xAA55`, `dw` stands for `data word`, we are storing a word which is two bytes on x86.
 
-The file should be compiled as in flat binary mode. With nasm, it would be: `nasm -f bin bootloader.s`. 
+The file should be compiled as in flat binary mode. With nasm, it would be: `nasm -f bin bootloader.s`. T
