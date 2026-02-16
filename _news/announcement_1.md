@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-My PR to pytorch/cpuinfo was merged!.
+My [PR](https://github.com/pytorch/cpuinfo/pull/352#event-22413794155) was merged in [pytorch/cpuinfo](https://github.com/pytorch/cpuinfo)!
