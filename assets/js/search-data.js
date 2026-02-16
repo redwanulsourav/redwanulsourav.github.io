@@ -65,7 +65,18 @@ ninja.data = [{
               handler: () => {
                 window.location.href = "/blog/";
               },
-            },{id: "post-a-post-with-plotly-js",
+            },{id: "post-basic-bootloader",
+        
+          title: "Basic Bootloader",
+        
+        description: "Writing a basic bootloader that does nothing.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/bootloader/";
+          
+        },
+      },{id: "post-a-post-with-plotly-js",
         
           title: "a post with plotly.js",
         
