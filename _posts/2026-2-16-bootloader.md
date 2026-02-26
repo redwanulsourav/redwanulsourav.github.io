@@ -9,7 +9,11 @@ featured: false
 ---
 
 ## The Booting Process
-When the power button is pressed, the BIOS looks for a bootable media. It does so by iterating over every drive attached to the BIOS, and checking the first last two bytes of the first 512 bytes. So it checks the 511th byte (index: 510) and 512-th byte (index: 511). If that particular word is a 0x55AA, then it recognizes it as a bootable media. So, if we want to boot our operating system, we have to make a file that contains that magic number at the appropriate location.
+When the power button is pressed, the BIOS looks for a bootable media. It does so by iterating over every drive attached to the BIOS, and checking the last two bytes of the first 512 bytes. If those two bytes (a word) is exactly 0x55AA, it recognizes the drive as bootable.
+
+So if we want to make our own OS, it must contain 0x55AA as the last word of the first 512 bytes. The first 512 bytes are also called a _bootsector_. In the bootsector, we will also setup a few other things and pass the control to the kernel.
+
+We start by making a bootsector which contains 0x55AA as the last word. 
 
 ```asm
 
@@ -17,13 +21,24 @@ times 510 - ($-$$) db 0
 dw 0xAA55
 
 ```
+Last word should be 0x55AA, which leaves 512 - 2 = 510 bytes for us. For now, we fill those bytes up with 0. (Soon it will contain code to setup some other things, along with passing control to the kernel)
 
-`$-$$` means whatever is the size between the start of this instruction and the beginning of file, (we could have other instructions before this line), then subtracting that from 510 to calculate how many 0s we will need to pad it with before we reach the 511-th byte.
+One thing to notice is that in the assembly, the last word is 0xAA55. The rationale is that x86 architectures are little endian, so the higher byte comes first. After compilation 0xAA55 becomes 0x55AA.
 
-The second and the last instruction sets the last two bytes to be `0xAA55`, `dw` stands for `data word`, we are storing a word which is two bytes on x86.
+The file should be compiled as in flat binary mode. 
 
-The file should be compiled as in flat binary mode. With nasm, it would be: `nasm -f bin bootloader.s`. 
+```bash
 
-We can verify the contents of the compiled file with `xxd bootsector`. Which shows the last 2 bytes to be 0x55AA. The x86 is little endian, thats why 0xAA55 becomes 0x55AA after compilation.
+nasm -f bin bootloader.s 
+```
 
-The OS can be booted with `qemu-i386-elf bootsector`. 
+This produces the flat binary file _bootsector_. Run this file with
+
+```bash
+
+qemu-system-i386 bootsector
+```
+
+QEMU boots the OS, and nothing else happens, because we didn't do any thing yet.
+
+
