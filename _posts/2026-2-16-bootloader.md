@@ -41,4 +41,19 @@ qemu-system-i386 bootsector
 
 QEMU boots the OS, and nothing else happens, because we didn't do any thing yet.
 
+To see some output, we can print a character. To do that, we have to write some characters to VGA memory location. The VGA memory is located at 0xB8000. To print a character, we need to write two bytes. The first byte is the ASCII value of the character that we want to be printed, and the second byte is the attribute for that character. The attribute specifies the color of the character, among other things. We can modify the bootsector as follows:
+
+```asm
+
+mov ax, 0xB800
+mov ds, ax
+mov byte [0x0000], 'A'
+mov byte [0x0001], 0x0F
+jmp $
+times 510 - ($-$$) db 0
+dw 0xAA55
+```
+
+This bootsector should print an `A` at the very begninning of the QEMU emulator. QEMU emulator usually shows some messages at the beginning, this `A` overwrites that space. It shows our bootsector is working.
+
 
