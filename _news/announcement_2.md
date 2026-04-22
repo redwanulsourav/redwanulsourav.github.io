@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-I will be joining Meta as PhD Software Engineer (ML) for Summer 2026!
+I will be joining Meta as PhD Software Engineer (ML) Intern for Summer 2026!
