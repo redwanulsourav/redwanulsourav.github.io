@@ -37,7 +37,18 @@ ninja.data = [{
               handler: () => {
                 window.location.href = "/blog/";
               },
-            },{id: "post-basic-bootloader",
+            },{id: "post-the-a20-line",
+        
+          title: "The A20 Line",
+        
+        description: "Details about the A20 Line",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/a20_line/";
+          
+        },
+      },{id: "post-basic-bootloader",
         
           title: "Basic Bootloader",
         
